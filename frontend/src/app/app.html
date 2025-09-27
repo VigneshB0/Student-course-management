@@ -1,0 +1,30 @@
+<nav class="modern-navbar" *ngIf="isLoggedIn">
+  <div class="navbar-container">
+    <a class="navbar-brand" routerLink="/students">🎓 Student Course Management</a>
+    <div class="nav-content">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/students" routerLinkActive="active">👥 Manage Students</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/courses" routerLinkActive="active">📚 Manage Courses</a>
+        </li>
+      </ul>
+      <div class="user-menu">
+        <span class="welcome-text" *ngIf="currentUser">
+          👋 Welcome, {{ currentUser.name }}
+        </span>
+        <button class="logout-btn" (click)="logout()">
+          <span class="logout-icon">🚪</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <div class="content-wrapper" [class.no-nav]="!isLoggedIn">
+    <router-outlet></router-outlet>
+  </div>
+</div>

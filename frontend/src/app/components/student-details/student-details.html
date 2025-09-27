@@ -1,0 +1,76 @@
+<div class="student-container">
+  <div class="form-card">
+    <h3 class="form-title">{{ isEditMode ? 'Edit Student' : 'Add New Student' }}</h3>
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" formControlName="name" class="form-control" placeholder="Enter student name">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" class="form-control" placeholder="Enter email address">
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input 
+          type="tel" 
+          formControlName="phone" 
+          class="form-control" 
+          placeholder="Enter 10-digit phone number"
+          maxlength="10"
+          pattern="[0-9]{10}"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+        >
+        <div class="validation-error" *ngIf="studentForm.get('phone')?.invalid && studentForm.get('phone')?.touched">
+          <small *ngIf="studentForm.get('phone')?.errors?.['required']" class="text-danger">
+            Phone number is required
+          </small>
+          <small *ngIf="studentForm.get('phone')?.errors?.['pattern'] || studentForm.get('phone')?.errors?.['minlength'] || studentForm.get('phone')?.errors?.['maxlength']" class="text-danger">
+            Phone number must be exactly 10 digits
+          </small>
+        </div>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="btn btn-success" [disabled]="studentForm.invalid">
+          {{ isEditMode ? 'Update Student' : 'Add Student' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <hr class="divider">
+
+  <div class="text-center">
+    <button type="button" class="btn btn-primary" (click)="toggleStudentList()">
+      {{ showStudentList ? 'Hide Student List' : 'Show Student List' }}
+    </button>
+  </div>
+
+  <div *ngIf="showStudentList" class="list-section">
+    <h3>Students List</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students">
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.phone }}</td>
+            <td>
+              <button class="btn btn-sm btn-info" (click)="editStudent(student)">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="deleteStudent(student._id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
