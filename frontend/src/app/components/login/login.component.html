@@ -9,7 +9,7 @@
 
     <!-- Error Message -->
     <div *ngIf="errorMessage" class="error-alert">
-      <span class="error-icon">⚠️</span>
+      <span class="error-icon"></span>
       {{ errorMessage }}
     </div>
 
@@ -18,7 +18,7 @@
       <!-- Email Field -->
       <div class="form-group">
         <label for="email" class="form-label">
-          <span class="label-icon">📧</span>
+          <span class="label-icon"></span>
           Email Address
         </label>
         <input
@@ -43,7 +43,7 @@
       <!-- Password Field -->
       <div class="form-group">
         <label for="password" class="form-label">
-          <span class="label-icon">🔒</span>
+          <span class="label-icon"></span>
           Password
         </label>
         <div class="password-input-container">
@@ -83,7 +83,7 @@
         [class.loading]="isLoading"
       >
         <span *ngIf="!isLoading" class="btn-text">
-          <span class="btn-icon">🚀</span>
+          <span class="btn-icon"></span>
           Sign In
         </span>
         <span *ngIf="isLoading" class="loading-spinner">
